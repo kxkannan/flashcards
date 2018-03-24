@@ -8,8 +8,9 @@ class NewDeckScreen extends React.Component {
     }
 
     handleSubmit = (event) => {
-        console.log("title of deck: " + JSON.stringify(this.state.input))
         saveDeckTitle(this.state.input)
+        console.log("navigating to Home")
+        this.props.navigation.navigate("Home")
     }
 
 
