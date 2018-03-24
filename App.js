@@ -2,46 +2,10 @@ import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { TabNavigator, StackNavigator, TabBarBottom } from 'react-navigation'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+import HomeScreen from './src/components/Home'
+import NewDeckScreen from './src/components/NewDeckScreen'
+import DeckScreen from './src/components/DeckScreen'
 
-class HomeScreen extends React.Component {
-    render() {
-        return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Decks List</Text>
-                <Button title="Go to Deck View" onPress={() => this.props.navigation.navigate('Deck')}/>
-            </View>
-        )
-    }
-}
-
-class DeckView extends React.Component {
-    render() {
-        return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Deck View</Text>
-            </View>
-        )
-    }
-}
-
-class NewDeckScreen extends React.Component {
-    render() {
-        return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-              <Text>Add New Deck</Text>
-            </View>
-        )
-    }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 const Decks = StackNavigator(
     {
@@ -49,7 +13,7 @@ const Decks = StackNavigator(
             screen: HomeScreen
         },
         Deck: {
-            screen: DeckView
+            screen: DeckScreen
         }
     },
     {
@@ -58,8 +22,8 @@ const Decks = StackNavigator(
 )
 
 const HomeStack = StackNavigator( {
-    Home: {screen: HomeScreen},
-    Deck: {screen: DeckView}
+    Home: { screen: HomeScreen },
+    Deck: { screen: DeckScreen }
 })
 
 const NewCardStack = StackNavigator( {
