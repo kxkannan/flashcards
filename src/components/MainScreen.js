@@ -3,9 +3,10 @@ import { TabNavigator, StackNavigator, TabBarBottom } from 'react-navigation'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { Button, StyleSheet, Text, View } from 'react-native';
 
-import HomeScreen from "./Home";
-import DeckScreen from "./DeckScreen";
-import NewDeckScreen from "./NewDeckScreen";
+import HomeScreen from "./Home"
+import DeckScreen from "./DeckScreen"
+import NewDeckScreen from "./NewDeckScreen"
+import AddCardScreen from './AddCardScreen'
 
 const Decks = StackNavigator(
     {
@@ -14,6 +15,9 @@ const Decks = StackNavigator(
         },
         Deck: {
             screen: DeckScreen
+        },
+        AddCard: {
+            screen: AddCardScreen
         }
     },
     {
@@ -22,8 +26,9 @@ const Decks = StackNavigator(
 )
 
 const HomeStack = StackNavigator( {
-    Home: { screen: HomeScreen },
-    Deck: { screen: DeckScreen }
+    Home:    { screen: HomeScreen },
+    Deck:    { screen: DeckScreen },
+    AddCard: { screen: AddCardScreen }
 })
 
 const NewCardStack = StackNavigator( {

@@ -11,9 +11,20 @@ export const reducer = (state = initialState, action) => {
             console.log("ADD_TITLE called with action: " + JSON.stringify(action))
             return {...state,
                     [title]: {
-                         title: title
+                         title: title,
+                         questions: []
+                    }
                    }
-                   }
+        case action_types.ADD_QUESTION:
+            console.log("ADD_QUESTION called with action: " + JSON.stringify(action))
+            return {...state,
+                   [title]: {
+                       title: title,
+                       questions: {...state.title.questions.concat([{
+                                                        question: action.question,
+                                                        answer: action.answer
+                                                    }])}
+                   }}
         default:
             console.log(" default case for reducer " + JSON.stringify(state))
             return state

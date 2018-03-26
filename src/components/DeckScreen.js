@@ -10,11 +10,12 @@ class DeckScreen extends React.Component {
         }
     }
 
-    addCard = () => {
-        console.log("addCard pressed")
+    addCard = (title, event) => {
+        console.log("addCard pressed for title: " + title)
+        this.props.navigation.navigate("AddCard", {title: title})
     }
 
-    startQuiz = () => {
+    startQuiz = (title, event) => {
         console.log("start quiz pressed")
     }
 
@@ -28,10 +29,10 @@ class DeckScreen extends React.Component {
                 <Text style={{textAlign: 'center'}}>{cardCount} cards</Text>
 
                 <View style={styles.button}>
-                  <Button title="Add Card" onPress={this.addCard}></Button>
+                  <Button title="Add Card" onPress={this.addCard.bind(this, title)}></Button>
                 </View>
                 <View style={styles.button}>
-                  <Button title="Start Quiz" onPress={this.startQuiz}></Button>
+                  <Button title="Start Quiz" onPress={this.startQuiz.bind(this, title)}></Button>
                 </View>
             </View>
         )
