@@ -1,64 +1,44 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { TabNavigator, StackNavigator, TabBarBottom } from 'react-navigation'
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+
+import { createStore } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+import rootReducer from './src/reducers';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/lib/integration/react';
+
+import MainScreen from './src/components/MainScreen'
 import HomeScreen from './src/components/Home'
 import NewDeckScreen from './src/components/NewDeckScreen'
 import DeckScreen from './src/components/DeckScreen'
+import LoadingScreen from './src/components/LoadingScreen'
+
+const persistConfig = {
+    key: 'root',
+    storage: storage,
+    stateReconciler: autoMergeLevel2
+};
+
+const appPersistReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = createStore(appPersistReducer);
+export const persistor = persistStore(store);
+
+const App = () => {
+    return (
+        <Provider store={store}>
+            <PersistGate loading={<LoadingScreen/>} persistor={persistor}>
+                <MainScreen/>
+            </PersistGate>
+        </Provider>
+    );
+}
+
+export default App;
 
 
-const Decks = StackNavigator(
-    {
-        Home: {
-            screen: HomeScreen
-        },
-        Deck: {
-            screen: DeckScreen
-        }
-    },
-    {
-        initialRouteName: 'Home'
-    }
-)
 
-const HomeStack = StackNavigator( {
-    Home: { screen: HomeScreen },
-    Deck: { screen: DeckScreen }
-})
-
-const NewCardStack = StackNavigator( {
-    NewDeck: { screen: NewDeckScreen}
-})
-
-export default TabNavigator(
-    {
-        Home: { screen: HomeStack },
-        NewDeck: { screen: NewCardStack }
-    },
-    { navigationOptions: ({ navigation }) => ({
-            tabBarIcon: ({ focused, tintColor }) => {
-                const { routeName } = navigation.state;
-                let iconName;
-                let icon;
-                if (routeName === 'Home') {
-                    iconName = `ios-home${focused ? '' : '-outline'}`;
-                    icon = <Ionicons name={iconName} size={25} color={tintColor} />;
-                } else if (routeName === 'NewDeck') {
-                    iconName = `cards${focused ? '' : '-outline'}`;
-                    icon = <MaterialCommunityIcons name={iconName} size={25} color={tintColor}/>
-                }
-                return icon
-            },
-        }),
-        tabBarComponent: TabBarBottom,
-        tabBarPosition: 'bottom',
-        tabBarOptions: {
-            activeTintColor: 'black',
-            inactiveTintColor: 'gray',
-        },
-        animationEnabled: false,
-        swipeEnabled: false,
-    }
-)
 
 

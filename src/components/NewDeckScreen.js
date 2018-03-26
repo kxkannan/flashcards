@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View, TextInput } from 'react-native';
-import {saveDeckTitle} from "../utils/api";
+import { connect } from 'react-redux'
+import * as actionCreators from '../actions/action_creators'
 
 class NewDeckScreen extends React.Component {
     state = {
@@ -8,9 +9,10 @@ class NewDeckScreen extends React.Component {
     }
 
     handleSubmit = (event) => {
-        saveDeckTitle(this.state.input)
+        console.log("handleSubmit saving title: " + this.state.input)
+        this.props.addTitle({title: this.state.input})
         console.log("navigating to Home")
-        this.props.navigation.navigate("Home")
+        this.props.navigation.navigate("Home", {refresh: true})
     }
 
 
@@ -37,4 +39,16 @@ const styles = StyleSheet.create({
     }
 })
 
-export default NewDeckScreen
+function mapStateToProps({reducer}) {
+    return {
+        reducer
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        addTitle: (data) => dispatch(actionCreators.addDeckTitle(data))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewDeckScreen)

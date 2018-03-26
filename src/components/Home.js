@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { getDecks } from "../utils/api";
+import { StyleSheet, Text, View, ScrollView} from 'react-native';
+import { connect } from 'react-redux'
+import DeckTitle  from './DeckTitle'
 
 class HomeScreen extends React.Component {
     state = {
@@ -8,27 +9,25 @@ class HomeScreen extends React.Component {
     }
 
     componentDidMount = () => {
-        console.log("componentDidMount called")
-        getDecks().then((decks) => {
-            console.log("getDecks resolved: " + JSON.stringify(JSON.parse(decks)))
-            let deckTitles = Object.keys(JSON.parse(decks))
-            this.setState({
-                titles: deckTitles
-            })
+        this.setState({
+            titles: Object.keys(this.props.reducer)
         })
     }
 
     render() {
-        const { titles } = this.state
+        let titles  = this.state.titles
+        const { refresh } = this.props.navigation.state
         console.log(" titles from state: " + JSON.stringify(titles))
+        console.log("refresh: " + refresh)
+
         if (titles.length > 0) {
-          return (<View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            {titles.map((title) => {
-                console.log("creating text from title: " + title)
-                return (<Text key={title}>{title}</Text>)
-               }
-            )}
-          </View>)
+          return (
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                <ScrollView>
+                    {titles.map((title) => <DeckTitle key={title} title={title} cardCount={1} navigation={this.props.navigation}/> ) }
+                </ScrollView>
+            </View>
+          )
         }
         else {
           return <Text>No Decks</Text>
@@ -36,4 +35,30 @@ class HomeScreen extends React.Component {
     }
 }
 
-export default HomeScreen
+function mapStateToProps({ reducer }) {
+    console.log("mapStateToProps reducer: " + JSON.stringify(reducer))
+    return { reducer }
+}
+
+function mapDispatchToProps(dispatch) {
+    return { }
+}
+
+        const styles = StyleSheet.create({
+            container: {
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+            box: {
+            width: 50,
+            height: 50,
+            backgroundColor: '#e76e63',
+            margin: 10,
+        }
+        })
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)

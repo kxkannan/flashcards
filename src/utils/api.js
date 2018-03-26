@@ -54,3 +54,7 @@ export function generateId() {
     return id;
 }
 
+export function clear() {
+    AsyncStorage.removeItem(DECKS_STORAGE_KEY)
+}
+
