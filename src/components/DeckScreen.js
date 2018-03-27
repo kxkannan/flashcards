@@ -12,7 +12,7 @@ class DeckScreen extends React.Component {
 
     addCard = (title, event) => {
         console.log("addCard pressed for title: " + title)
-        this.props.navigation.navigate("AddCard", {title: title})
+        this.props.navigation.navigate("AddCard", {title: title, go_back_key: this.props.navigation.state.key})
     }
 
     startQuiz = (title, event) => {

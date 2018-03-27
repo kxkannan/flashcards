@@ -20,11 +20,14 @@ export const reducer = (state = initialState, action) => {
             return {...state,
                    [title]: {
                        title: title,
-                       questions: {...state.title.questions.concat([{
+                       questions: state[title].questions.concat([{
                                                         question: action.question,
                                                         answer: action.answer
-                                                    }])}
+                                                    }])
                    }}
+        case action_types.RESET_STORE:
+            console.log("RESET redux store called")
+            return initialState
         default:
             console.log(" default case for reducer " + JSON.stringify(state))
             return state

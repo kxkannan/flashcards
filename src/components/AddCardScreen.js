@@ -22,6 +22,7 @@ class AddCardScreen extends React.Component {
     newCardSubmit = () => {
        console.log("new card submitted question: " + this.state.question + " answer: " + this.state.answer + " title: " + this.props.navigation.state.params.title)
        this.props.addQuestion( {title: this.props.navigation.state.params.title, question: this.state.question, answer: this.state.answer} )
+       this.props.navigation.goBack(this.props.navigation.state.params.go_back_key)
     }
 
 

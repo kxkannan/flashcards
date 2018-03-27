@@ -15,3 +15,9 @@ export function addQuestion( { title, question, answer }) {
         answer
     }
 }
+
+export function resetStore() {
+    return {
+        type: action_types.RESET_STORE
+    }
+}

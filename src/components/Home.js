@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView} from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Button} from 'react-native';
 import { connect } from 'react-redux'
 import DeckTitle  from './DeckTitle'
+import * as actionCreators from '../actions/action_creators'
 
 class HomeScreen extends React.Component {
     state = {
@@ -14,17 +15,37 @@ class HomeScreen extends React.Component {
         })
     }
 
+    resetStore = () => {
+        this.props.resetStore()
+    }
+
+    deckCardCount = (title, event) => {
+        console.log("deckCardCount title: " + title)
+        if (Object.keys(this.props.reducer).length > 0 && this.props.reducer[title]) {
+             return this.props.reducer[title].questions.length
+        }
+        else
+        {
+            return 0
+        }
+    }
+
+
+
+
     render() {
         let titles  = this.state.titles
-        const { refresh } = this.props.navigation.state
-        console.log(" titles from state: " + JSON.stringify(titles))
-        console.log("refresh: " + refresh)
+        if (Object.keys(this.props.reducer).length > 0){
+            titles = Object.keys(this.props.reducer)
+        }
 
+        let cardCount = 0
         if (titles.length > 0) {
           return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <ScrollView>
-                    {titles.map((title) => <DeckTitle key={title} title={title} cardCount={1} navigation={this.props.navigation}/> ) }
+                    {titles.map((title) => <DeckTitle key={title} title={title} cardCount={this.props.reducer[title].questions.length || 0} navigation={this.props.navigation}/> ) }
+                    <Button title="reset" onPress={this.resetStore} />
                 </ScrollView>
             </View>
           )
@@ -39,9 +60,10 @@ function mapStateToProps({ reducer }) {
     console.log("mapStateToProps reducer: " + JSON.stringify(reducer))
     return { reducer }
 }
-
 function mapDispatchToProps(dispatch) {
-    return { }
+    return {
+        resetStore: () => dispatch(actionCreators.resetStore())
+    }
 }
 
         const styles = StyleSheet.create({
