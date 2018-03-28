@@ -21,3 +21,28 @@ export function resetStore() {
         type: action_types.RESET_STORE
     }
 }
+
+export function setQuizQuestion( { title, question, answer, questionNumber, totalQuestions }) {
+    return {
+        type: action_types.SET_QUIZ_QUESTION,
+        title,
+        question,
+        answer,
+        questionNumber,
+        totalQuestions
+    }
+}
+
+export function correctAnswer( { question }) {
+    return {
+        type: action_types.CORRECT_ANSWER,
+        question
+    }
+}
+
+export function incorrectAnswer( { question }) {
+    return {
+        type: action_types.INCORRECT_ANSWER,
+        question
+    }
+}

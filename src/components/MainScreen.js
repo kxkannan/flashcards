@@ -7,6 +7,7 @@ import HomeScreen from "./Home"
 import DeckScreen from "./DeckScreen"
 import NewDeckScreen from "./NewDeckScreen"
 import AddCardScreen from './AddCardScreen'
+import QuizScreen from './QuizScreen'
 
 const Decks = StackNavigator(
     {
@@ -18,6 +19,9 @@ const Decks = StackNavigator(
         },
         AddCard: {
             screen: AddCardScreen
+        },
+        Quiz: {
+            screen: QuizScreen
         }
     },
     {
@@ -28,7 +32,8 @@ const Decks = StackNavigator(
 const HomeStack = StackNavigator( {
     Home:    { screen: HomeScreen },
     Deck:    { screen: DeckScreen },
-    AddCard: { screen: AddCardScreen }
+    AddCard: { screen: AddCardScreen },
+    Quiz:    { screen: QuizScreen }
 })
 
 const NewCardStack = StackNavigator( {

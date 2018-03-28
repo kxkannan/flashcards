@@ -1,5 +1,7 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
+import { connect } from 'react-redux'
+import * as actionCreators from "../actions/action_creators";
 
 class DeckScreen extends React.Component {
     static navigationOptions = ({navigation}) =>  {
@@ -17,6 +19,9 @@ class DeckScreen extends React.Component {
 
     startQuiz = (title, event) => {
         console.log("start quiz pressed")
+        this.props.navigation.navigate("Quiz", {title: title, go_back_key: this.props.navigation.state.key})
+        let questions = this.props.reducer[title].questions
+        this.props.setQuizQuestion( { title: title, question: questions[0].question, answer: questions[0].answer, questionNumber: 1, totalQuestions: questions.length })
     }
 
 
@@ -51,4 +56,18 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DeckScreen
+function mapStateToProps( state ) {
+    console.log("mapStateToProps state: " + JSON.stringify(state))
+  return {
+      reducer: state.reducer,
+      quiz: state.quiz
+  }
+}
+
+function mapDispatchToProps( dispatch ) {
+    return {
+        setQuizQuestion: (data) => dispatch(actionCreators.setQuizQuestion(data))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckScreen)
