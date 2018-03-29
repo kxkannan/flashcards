@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     },
     question: {
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
     },

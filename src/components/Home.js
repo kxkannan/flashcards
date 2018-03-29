@@ -9,6 +9,12 @@ class HomeScreen extends React.Component {
         titles: []
     }
 
+    static navigationOptions = ({navigation}) =>  {
+        return {
+            title: "Quiz decks"
+        }
+    }
+
     componentDidMount = () => {
         this.setState({
             titles: Object.keys(this.props.reducer)
@@ -29,9 +35,6 @@ class HomeScreen extends React.Component {
             return 0
         }
     }
-
-
-
 
     render() {
         let titles  = this.state.titles

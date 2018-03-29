@@ -4,7 +4,6 @@ import { Text, View, TouchableOpacity } from 'react-native';
 class DeckTitle extends React.Component {
 
     selectDeck = (title, cardCount, navigation, event) => {
-        console.log("selecteDeck clicked: " + JSON.stringify(title))
         navigation.navigate("Deck", {title: title, cardCount: cardCount})
     }
 

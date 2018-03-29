@@ -33,9 +33,9 @@ class AddCardScreen extends React.Component {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 
-                <TextInput value={question} style={styles.input} onChangeText={(text) => this.setState({question: text})}/>
+                <TextInput placeholder={question} style={styles.input} onChangeText={(text) => this.setState({question: text})}/>
 
-                <TextInput value={answer} style={styles.input} onChangeText={(text) => this.setState({answer: text})}/>
+                <TextInput placeholder={answer} style={styles.input} onChangeText={(text) => this.setState({answer: text})}/>
 
                 <View style={styles.button}>
                     <Button title="Submit" onPress={this.newCardSubmit}></Button>

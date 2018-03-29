@@ -8,6 +8,13 @@ class NewDeckScreen extends React.Component {
         input: 'Deck title'
     }
 
+    static navigationOptions = ({navigation}) =>  {
+        return {
+            title: "New quiz deck"
+        }
+    }
+
+
     handleSubmit = (event) => {
         console.log("handleSubmit saving title: " + this.state.input)
         this.props.addTitle({title: this.state.input})
@@ -21,7 +28,7 @@ class NewDeckScreen extends React.Component {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <Text>What is the Title of your new Deck?</Text>
-                <TextInput value={input} style={styles.input} onChangeText={(text) => this.setState({input: text})}/>
+                <TextInput placeholder={input} style={styles.input} onChangeText={(text) => this.setState({input: text})}/>
                 <Button onPress={this.handleSubmit} title="Submit" />
             </View>
         )
