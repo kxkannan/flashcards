@@ -1,7 +1,8 @@
 import React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux'
 import * as actionCreators from "../actions/action_creators";
+import Button from 'react-native-button'
 
 class DeckScreen extends React.Component {
     static navigationOptions = ({navigation}) => {
@@ -41,11 +42,18 @@ class DeckScreen extends React.Component {
                   <Text>{cardCount} cards</Text>
                 </View>
                 <View style={styles.buttons}>
-                    <View style={styles.addButton}>
-                        <Button color="black" title="Add Card" onPress={this.addCard.bind(this, title)}></Button>
+                    <View >
+                        <Button
+                            containerStyle={{padding:10, height:45, width: 150, overflow:'hidden', borderRadius:4, backgroundColor: 'white'}}
+                            style={{ fontSize: 20, color: 'black' }}
+                            onPress={this.addCard.bind(this, title)}>Add Card</Button>
                     </View>
-                    <View style={styles.quizButton}>
-                        <Button color="white" title="Start Quiz" onPress={this.startQuiz.bind(this, title)}></Button>
+                    <View >
+                        <Button
+                            containerStyle={{padding:10, height:45, width: 150, overflow:'hidden', borderRadius:4, backgroundColor: 'green'}}
+                            style={{fontSize: 20, color: 'white'}}
+                            onPress={this.startQuiz.bind(this, title)}>Start Quiz
+                        </Button>
                     </View>
                 </View>
             </View>
