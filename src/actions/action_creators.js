@@ -33,18 +33,29 @@ export function setQuizQuestion( { title, question, answer, questionNumber, tota
     }
 }
 
-export function correctAnswer( { title, question }) {
+export function correctAnswer() {
     return {
         type: action_types.CORRECT_ANSWER,
-        title,
-        question
     }
 }
 
-export function incorrectAnswer( { title, question }) {
+export function incorrectAnswer() {
     return {
         type: action_types.INCORRECT_ANSWER,
-        title,
-        question
+    }
+}
+
+export function setQuestion( { questionNumber, question, answer}) {
+    return {
+        type: action_types.SET_QUESTION,
+        questionNumber,
+        question,
+        answer
+    }
+}
+
+export function completeQuiz() {
+    return {
+        type: action_types.COMPLETE_QUIZ
     }
 }

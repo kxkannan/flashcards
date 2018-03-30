@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Button, StyleSheet, TextInput, View } from 'react-native';
+import { StyleSheet, TextInput, View, KeyboardAvoidingView } from 'react-native';
 import * as actionCreators from '../actions/action_creators'
+import Button from 'react-native-button'
 
 class AddCardScreen extends React.Component {
 
@@ -20,7 +21,6 @@ class AddCardScreen extends React.Component {
     }
 
     newCardSubmit = () => {
-       console.log("new card submitted question: " + this.state.question + " answer: " + this.state.answer + " title: " + this.props.navigation.state.params.title)
        this.props.addQuestion( {title: this.props.navigation.state.params.title, question: this.state.question, answer: this.state.answer} )
        this.props.navigation.goBack(this.props.navigation.state.params.go_back_key)
     }
@@ -31,16 +31,19 @@ class AddCardScreen extends React.Component {
         const { question, answer } = this.state
 
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <KeyboardAvoidingView behavior="padding" style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
 
                 <TextInput placeholder={question} style={styles.input} onChangeText={(text) => this.setState({question: text})}/>
 
                 <TextInput placeholder={answer} style={styles.input} onChangeText={(text) => this.setState({answer: text})}/>
 
-                <View style={styles.button}>
-                    <Button title="Submit" onPress={this.newCardSubmit}></Button>
-                </View>
-            </View>
+                <KeyboardAvoidingView behavior="padding" style={styles.button}>
+                    <Button
+                        containerStyle={{padding:10, height:45, width: 150, overflow:'hidden', borderRadius:4, backgroundColor: 'green'}}
+                        style={{fontSize: 20, color: 'white'}}
+                        onPress={this.newCardSubmit}>Submit</Button>
+                </KeyboardAvoidingView>
+            </KeyboardAvoidingView>
         )
     }
 }
@@ -58,10 +61,10 @@ const styles = StyleSheet.create({
     input: {
         width: 200,
         height: 44,
-        padding: 8,
+        padding: 4,
         borderWidth: 1,
         borderColor: `#757575`,
-        margin: 50
+        margin: 20
     }
 })
 

@@ -18,17 +18,19 @@ class DeckScreen extends React.Component {
     }
 
     startQuiz = (title, event) => {
-        this.props.navigation.navigate("Quiz", {title: title, go_back_key: this.props.navigation.state.key})
-        let questions = this.props.reducer[title].questions[0]
-        this.props.setQuizQuestion({
-            title: title,
-            question: questions.question,
-            answer: questions.answer,
-            questionNumber: 1,
-            totalQuestions: this.props.reducer[title].questions.length
-        })
+        if (this.props.reducer[title].questions.length > 0) {
+            this.props.navigation.navigate("Quiz", {title: title, go_back_key: this.props.navigation.state.key})
+            let questions = this.props.reducer[title].questions[0]
+            this.props.setQuizQuestion({
+                title: title,
+                questions: this.props.reducer[title].questions,
+                question: questions.question,
+                answer: questions.answer,
+                questionNumber: 1,
+                totalQuestions: this.props.reducer[title].questions.length
+            })
+        }
     }
-
 
     render() {
         const {title, cardCount} = this.props.navigation.state.params
@@ -87,8 +89,9 @@ const styles = StyleSheet.create({
     },
     buttons: {
        alignItems: 'center',
-       justifyContent: 'center',
-       height: 600
+       justifyContent: 'space-between',
+       height: 100,
+       width: 400
     }
 
 })

@@ -59,7 +59,6 @@ class HomeScreen extends React.Component {
 }
 
 function mapStateToProps({ reducer }) {
-    console.log("mapStateToProps reducer: " + JSON.stringify(reducer))
     return { reducer }
 }
 function mapDispatchToProps(dispatch) {
