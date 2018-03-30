@@ -21,13 +21,18 @@ class AddCardScreen extends React.Component {
     }
 
     newCardSubmit = () => {
-       this.props.addQuestion( {title: this.props.navigation.state.params.title, question: this.state.question, answer: this.state.answer} )
-       this.props.navigation.goBack(this.props.navigation.state.params.go_back_key)
+       if ( this.state.question != "Qustion" && this.state.answer != "Answer") {
+           this.props.addQuestion({
+               title: this.props.navigation.state.params.title,
+               question: this.state.question,
+               answer: this.state.answer
+           })
+           this.props.navigation.goBack(this.props.navigation.state.params.go_back_key)
+       }
     }
 
 
     render() {
-        // const { title, cardCount } = this.props.navigation.state.params
         const { question, answer } = this.state
 
         return (
@@ -39,8 +44,9 @@ class AddCardScreen extends React.Component {
 
                 <KeyboardAvoidingView behavior="padding" style={styles.button}>
                     <Button
-                        containerStyle={{padding:10, height:45, width: 150, overflow:'hidden', borderRadius:4, backgroundColor: 'green'}}
+                        containerStyle={{padding: 10, height: 50, width: 150, overflow:'hidden', borderRadius:4, backgroundColor: 'green' }}
                         style={{fontSize: 20, color: 'white'}}
+                        disabled={(this.state.question === "Question" || this.state.answer === "Answer")}
                         onPress={this.newCardSubmit}>Submit</Button>
                 </KeyboardAvoidingView>
             </KeyboardAvoidingView>
@@ -55,8 +61,6 @@ const styles = StyleSheet.create({
         width: 150,
         alignContent: 'center',
         backgroundColor: "#ffffff",
-        margin: 10,
-        padding: 5
     },
     input: {
         width: 200,

@@ -31,10 +31,8 @@ export const reducer = (state = initialState, action) => {
 }
 
 export const quiz = (state = initialState, action) => {
-    console.log("quiz reducer called state: " + JSON.stringify(state) + "  action: " + JSON.stringify(action))
     switch  (action.type) {
         case action_types.START_QUIZ:
-            console.log("START_QUIZ called with action: " + JSON.stringify(action))
             return {
                     title: action.title,
                     questions: action.questions,
@@ -55,13 +53,11 @@ export const quiz = (state = initialState, action) => {
             }
 
         case action_types.CORRECT_ANSWER:
-            console.log("CORRECT_ANSWER quiz state: " + JSON.stringify(state) + "  action: " + JSON.stringify(action) )
             return {...state,
                     correctCount:  state.correctCount + 1
                    }
 
         case action_types.INCORRECT_ANSWER:
-            console.log("INCORRECT_ANSWER quiz state: " + JSON.stringify(state) + "  action: " + JSON.stringify(action) )
             return {...state,
                     incorrectCount: state.incorrectCount + 1
                    }

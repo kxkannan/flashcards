@@ -39,7 +39,6 @@ class QuizScreen extends React.Component {
     }
 
     showCompleted = () => {
-        console.log("**** QUIZ completed")
         this.setState( {
             mode: "completed"
         })
@@ -50,7 +49,6 @@ class QuizScreen extends React.Component {
         let quiz = this.props.quiz
         this.props.correctAnswer()
         if (!quiz.completed && currentQuestionNumber < quiz.totalQuestions) {
-            console.log(" this.props.quiz.correctCount + this.props.quiz.incorrectCount " + (this.props.quiz.correctCount + this.props.quiz.incorrectCount) + " quiz.totalQuestions " + quiz.totalQuestions)
             this.showNextQuestion()
         } else {
             this.props.completeQuiz()
@@ -63,7 +61,6 @@ class QuizScreen extends React.Component {
         let quiz = this.props.quiz
         this.props.incorrectAnswer()
         if (!quiz.completed && currentQuestionNumber < quiz.totalQuestions) {
-            console.log(" this.props.quiz.correctCount + this.props.quiz.incorrectCount " + (this.props.quiz.correctCount + this.props.quiz.incorrectCount) + " quiz.totalQuestions " + quiz.totalQuestions)
             this.showNextQuestion()
         } else {
             this.props.completeQuiz()
@@ -173,8 +170,6 @@ const styles = StyleSheet.create({
         width: 150,
         alignContent: 'flex-start',
         backgroundColor: "#ffffff",
-        margin: 10,
-        padding: 5
     },
     question: {
         flex: 1,

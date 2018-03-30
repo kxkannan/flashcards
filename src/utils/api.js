@@ -17,7 +17,6 @@ export function getDecks() {
 
 export function getDeck(title) {
    let decks = AsyncStorage.getItem(DECKS_STORAGE_KEY)
-   console.log("AsyncStorage getDeck for (" + title + "): item: " + JSON.stringify(item))
 }
 
 export function saveDeckTitle(title) {

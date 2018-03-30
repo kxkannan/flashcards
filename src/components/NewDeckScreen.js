@@ -27,7 +27,7 @@ class NewDeckScreen extends React.Component {
         const { input } = this.state
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <Text style={{fontSize: 22}}>What is the Title of your new Deck?</Text>
+                <Text style={{fontSize: 22}}>What is the title of your new Deck?</Text>
                 <TextInput placeholder={input} style={styles.input} onChangeText={(text) => this.setState({input: text})}/>
                 <Button
                     containerStyle={{padding:10, height:45, width: 150, overflow:'hidden', borderRadius:4, backgroundColor: 'green'}}
