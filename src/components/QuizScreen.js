@@ -11,8 +11,6 @@ class QuizScreen extends React.Component {
     }
 
     componentDidMount = () => {
-        console.log("QuizScreen component did mount called with title " + JSON.stringify(this.props.navigation.state.params.title))
-        console.log("this.props.reducer: " + JSON.stringify(this.props.reducer))
         this.setState( {
             title: this.props.navigation.state.params.title,
         })
@@ -40,31 +38,47 @@ class QuizScreen extends React.Component {
     }
 
     correctAnswer = () =>  {
-        console.log("CORRECT answer clicked")
         let { currentQuestionNumber } = this.state
-        let title = this.props.quiz.title
-        this.props.correctAnswer({ question: this.props.quiz.question })
-        if (currentQuestionNumber < this.props.quiz.totalQuestions ){
-            this.setState({
-                currentQuestionNumber: currentQuestionNumber + 1
-            })
+        let title = Object.keys(this.props.quiz)[0]
+        let quiz = Object.values(this.props.quiz)[0]
+        if (currentQuestionNumber < quiz.totalQuestions ){
+            this.props.correctAnswer({ title: title, question: this.props.quiz.question })
             this.props.setQuizQuestion( {
+                title: title,
                 question: this.props.reducer[title].questions[currentQuestionNumber].question,
                 answer: this.props.reducer[title].questions[currentQuestionNumber].answer,
                 questionNumber: currentQuestionNumber
             })
+            currentQuestionNumber += 1
+            this.setState({
+                currentQuestionNumber: currentQuestionNumber
+            })
+        }
+        console.log("currentQuestionNumber: " + currentQuestionNumber + " totalQuestions " + quiz.totalQuestions )
+        if (currentQuestionNumber >= quiz.totalQuestions) {
+            console.log("***** Quiz completed from CORRECT_answer")
         }
 
     }
 
     incorrectAnswer = () => {
-        console.log("incorrectAnswer clicked")
-        this.props.incorrectAnswer({ question: this.props.quiz.question })
+        let { currentQuestionNumber } = this.state
+        let title = Object.keys(this.props.quiz)[0]
+        let quiz = Object.values(this.props.quiz)[0]
+        if (currentQuestionNumber >= quiz.totalQuestions) {
+            console.log("***** Quiz completed from INCORRECT answer")
+        }
+        else {
+            this.props.incorrectAnswer({ title: title, question: this.props.quiz.question })
+            currentQuestionNumber += 1
+        }
     }
 
     render() {
-        const { question, answer } = this.props.quiz
+        console.log("***QuizScreen this.props.quiz: " + JSON.stringify(this.props.quiz))
+        const { question, answer } = Object.values(this.props.quiz)[0]
         const { mode } = this.state
+        console.log("question: " + question + " answer: " + answer)
 
         if (mode == "question") {
             return (

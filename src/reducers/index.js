@@ -4,11 +4,9 @@ import * as action_types  from '../actions/types'
 const initialState = {  }
 
 export const reducer = (state = initialState, action) => {
-    console.log("reducer called with state: " + JSON.stringify(state) + " action: " + JSON.stringify(action))
     let title = action.title
     switch (action.type) {
         case action_types.ADD_TITLE:
-            console.log("ADD_TITLE called with action: " + JSON.stringify(action))
             return {...state,
                     [title]: {
                          title: title,
@@ -16,7 +14,6 @@ export const reducer = (state = initialState, action) => {
                     }
                    }
         case action_types.ADD_QUESTION:
-            console.log("ADD_QUESTION called with action: " + JSON.stringify(action))
             return {...state,
                    [title]: {
                        title: title,
@@ -26,44 +23,49 @@ export const reducer = (state = initialState, action) => {
                                                     }])
                    }}
         case action_types.RESET_STORE:
-            console.log("RESET redux store called")
             return initialState
         default:
-            console.log(" default case for reducer " + JSON.stringify(state))
             return state
     }
 }
 
-const quizInitialState = {
-    title: '',
-    question: '',
-    answer: '',
-    questionNumber: 0,
-    totalQuestions: 0,
-    correctCount: 0,
-    incorrectCount: 0
-}
-
-export const quiz = (state = quizInitialState, action) => {
-
+export const quiz = (state = initialState, action) => {
+    console.log("quiz reducer called state: " + JSON.stringify(state))
     switch  (action.type) {
-        case action_types.SET_QUIZ_QUESTION:
-            console.log("SET_QUIZ_QUSTION called with action: " + JSON.stringify(action))
-            return {...state,
-                    title: action.title,
+        case action_types.START_QUIZ:
+            console.log("START_QUIZ called with action: " + JSON.stringify(action))
+            let retVal = {
+                [action.title]: {
                     question: action.question,
                     answer: action.answer,
                     questionNumber: action.questionNumber,
-                    totalQuestions: action.totalQuestions
-                  }
-        case action_types.CORRECT_ANSWER:
-            return {...state,
-                    correctCount:  state.correctCount + 1
-                   }
-        case action_types.INCORRECT_ANSWER:
-            return {...state,
-                incorrectCount:  state.incorrectCount + 1
+                    totalQuestions: action.totalQuestions,
+                    correctCount: 0,
+                    incorrectCount: 0
+                }
             }
+            console.log("START_QUIZ returning state: " + JSON.stringify(retVal))
+            return retVal
+
+        case action_types.CORRECT_ANSWER:
+            console.log("CORRECT_ANSWER quiz state: " + JSON.stringify(state) + "  action: " + JSON.stringify(action) )
+            return {...state,
+                [action.title]: {...state[action.title],
+                                 correctCount:  state[action.title].correctCount + 1
+                   }
+            }
+
+        case action_types.INCORRECT_ANSWER:
+            console.log("INCORRECT_ANSWER quiz state: " + JSON.stringify(state) + "  action: " + JSON.stringify(action) )
+            return {...state,
+                [action.title]: {...state[action.title],
+                                 incorrectCount: state[action.title].incorrectCount + 1
+                }
+            }
+
+        case action_types.RESET_STORE:
+            return initialState
+
         default:
             return state
     }

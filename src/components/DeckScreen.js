@@ -14,20 +14,18 @@ class DeckScreen extends React.Component {
     }
 
     addCard = (title, event) => {
-        console.log("addCard pressed for title: " + title)
         this.props.navigation.navigate("AddCard", {title: title, go_back_key: this.props.navigation.state.key})
     }
 
     startQuiz = (title, event) => {
-        console.log("start quiz pressed")
         this.props.navigation.navigate("Quiz", {title: title, go_back_key: this.props.navigation.state.key})
-        let questions = this.props.reducer[title].questions
+        let questions = this.props.reducer[title].questions[0]
         this.props.setQuizQuestion({
             title: title,
-            question: questions[0].question,
-            answer: questions[0].answer,
+            question: questions.question,
+            answer: questions.answer,
             questionNumber: 1,
-            totalQuestions: questions.length
+            totalQuestions: this.props.reducer[title].questions.length
         })
     }
 
@@ -96,7 +94,6 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-    console.log("mapStateToProps state: " + JSON.stringify(state))
     return {
         reducer: state.reducer,
         quiz: state.quiz

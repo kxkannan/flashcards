@@ -10,7 +10,6 @@ export function getDecks() {
         }
         if (result) {
           decks = JSON.parse(result)
-          console.log("getDecks() decks: " + JSON.stringify(decks) + "typeof decks " + typeof decks)
           decks
         }
     })

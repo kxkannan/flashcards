@@ -24,7 +24,7 @@ export function resetStore() {
 
 export function setQuizQuestion( { title, question, answer, questionNumber, totalQuestions }) {
     return {
-        type: action_types.SET_QUIZ_QUESTION,
+        type: action_types.START_QUIZ,
         title,
         question,
         answer,
@@ -33,16 +33,18 @@ export function setQuizQuestion( { title, question, answer, questionNumber, tota
     }
 }
 
-export function correctAnswer( { question }) {
+export function correctAnswer( { title, question }) {
     return {
         type: action_types.CORRECT_ANSWER,
+        title,
         question
     }
 }
 
-export function incorrectAnswer( { question }) {
+export function incorrectAnswer( { title, question }) {
     return {
         type: action_types.INCORRECT_ANSWER,
+        title,
         question
     }
 }

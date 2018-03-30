@@ -1,6 +1,6 @@
 export const ADD_TITLE          = "ADD_TITLE"
 export const ADD_QUESTION       = "ADD_QUESTION"
 export const RESET_STORE        = "RESET_STORE"
-export const SET_QUIZ_QUESTION  = "SET_QUIZ_QUESTION"
+export const START_QUIZ         = "START_QUIZ"
 export const CORRECT_ANSWER     = "CORRECT_ANSWER"
 export const INCORRECT_ANSWER   = "INCORRECT_ANSWER"

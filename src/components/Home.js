@@ -26,7 +26,6 @@ class HomeScreen extends React.Component {
     }
 
     deckCardCount = (title, event) => {
-        console.log("deckCardCount title: " + title)
         if (Object.keys(this.props.reducer).length > 0 && this.props.reducer[title]) {
              return this.props.reducer[title].questions.length
         }

@@ -16,9 +16,9 @@ class NewDeckScreen extends React.Component {
 
 
     handleSubmit = (event) => {
-        console.log("handleSubmit saving title: " + this.state.input)
         this.props.addTitle({title: this.state.input})
-        console.log("navigating to Home")
+        this.setState({input: 'Deck title'})
+        console.log("navigating to Home - input text set to " + this.state.input)
         this.props.navigation.navigate("Home", {refresh: true})
     }
 
