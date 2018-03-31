@@ -13,22 +13,26 @@ class DeckScreen extends React.Component {
         }
     }
 
+    componentDidMount = () => {
+        this.props.setCurrentDeckTitle({title: this.props.navigation.state.params.title})
+    }
+
     addCard = (title, event) => {
         this.props.navigation.navigate("AddCard", {title: title, go_back_key: this.props.navigation.state.key})
     }
 
     startQuiz = (title, event) => {
-        if (this.props.reducer[title].questions.length > 0) {
-            this.props.navigation.navigate("Quiz", {title: title, go_back_key: this.props.navigation.state.key})
-            let questions = this.props.reducer[title].questions[0]
-            this.props.setQuizQuestion({
+        if (this.props.reducer.decks[title].questions.length > 0) {
+            let questions = this.props.reducer.decks[title].questions[0]
+            this.props.startQuiz({
                 title: title,
-                questions: this.props.reducer[title].questions,
+                questions: this.props.reducer.decks[title].questions,
                 question: questions.question,
                 answer: questions.answer,
                 questionNumber: 1,
-                totalQuestions: this.props.reducer[title].questions.length
+                totalQuestions: this.props.reducer.decks[title].questions.length
             })
+            this.props.navigation.navigate("Quiz", {title: title, go_back_key: this.props.navigation.state.key})
         }
     }
 
@@ -105,7 +109,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        setQuizQuestion: (data) => dispatch(actionCreators.setQuizQuestion(data))
+        startQuiz: (data) => dispatch(actionCreators.startQuiz(data)),
+        setCurrentDeckTitle: (data) => dispatch(actionCreators.setCurrentDeckTitle(data))
     }
 }
 

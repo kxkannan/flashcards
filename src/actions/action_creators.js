@@ -22,7 +22,7 @@ export function resetStore() {
     }
 }
 
-export function setQuizQuestion( { title, question, answer, questionNumber, totalQuestions }) {
+export function startQuiz( { title, question, answer, questionNumber, totalQuestions }) {
     return {
         type: action_types.START_QUIZ,
         title,
@@ -57,5 +57,19 @@ export function setQuestion( { questionNumber, question, answer}) {
 export function completeQuiz() {
     return {
         type: action_types.COMPLETE_QUIZ
+    }
+}
+
+export function setCurrentDeckTitle( { title }) {
+    return {
+        type: action_types.CURRENT_DECK_TITLE,
+        title
+    }
+}
+
+export function setGoBackKey( { goBackKey }) {
+    return  {
+        type: action_types.SET_GO_BACK_KEY,
+        goBackKey
     }
 }

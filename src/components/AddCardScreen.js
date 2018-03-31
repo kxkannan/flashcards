@@ -21,13 +21,14 @@ class AddCardScreen extends React.Component {
     }
 
     newCardSubmit = () => {
-       if ( this.state.question != "Qustion" && this.state.answer != "Answer") {
+        let currentDeckTitle = this.props.reducer.reducer.currentDeckTitle
+        if ( this.state.question != "Question" && this.state.answer != "Answer") {
            this.props.addQuestion({
                title: this.props.navigation.state.params.title,
                question: this.state.question,
                answer: this.state.answer
            })
-           this.props.navigation.goBack(this.props.navigation.state.params.go_back_key)
+           this.props.navigation.goBack()
        }
     }
 

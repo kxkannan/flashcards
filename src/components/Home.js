@@ -26,8 +26,8 @@ class HomeScreen extends React.Component {
     }
 
     deckCardCount = (title, event) => {
-        if (Object.keys(this.props.reducer).length > 0 && this.props.reducer[title]) {
-             return this.props.reducer[title].questions.length
+        if (Object.keys(this.props.reducer.decks).length > 0 && this.props.reducer.decks[title]) {
+             return this.props.reducer.decks[title].questions.length
         }
         else
         {
@@ -38,7 +38,7 @@ class HomeScreen extends React.Component {
     render() {
         let titles  = this.state.titles
         if (Object.keys(this.props.reducer).length > 0){
-            titles = Object.keys(this.props.reducer)
+            titles = Object.keys(this.props.reducer.decks)
         }
 
         let cardCount = 0
@@ -46,7 +46,7 @@ class HomeScreen extends React.Component {
           return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <ScrollView>
-                    {titles.map((title) => <DeckTitle key={title} title={title} cardCount={this.props.reducer[title].questions.length || 0} navigation={this.props.navigation}/> ) }
+                    {titles.map((title) => <DeckTitle key={title} title={title} cardCount={this.props.reducer.decks[title].questions.length || 0} navigation={this.props.navigation}/> ) }
                     <Button title="reset" onPress={this.resetStore} />
                 </ScrollView>
             </View>
