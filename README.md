@@ -35,11 +35,11 @@ On the mobile device, you need to have the [Expo app](https://expo.io) installed
 
 #### `Application usage`
 
-The app will open up with 2 tabs ( Quiz decks  and New quiz deck) and the main screen will show "No Decks".
+The app will open up with 2 tabs ( Quiz decks  and New quiz deck) and the main screen show couple of pre-populated decks with questions.
 
 Click on the "New quiz deck" tab and start entering the title for the new deck and submit.
 
-This will transition to the main screen and will show the deck title.
+This will transition to the main screen and will show the new deck title.
 
 ##### `Adding quiz cards`
 
@@ -64,5 +64,11 @@ You can click Correct or Incorrect button to move through the cards.
 Once you reach the final card of the deck, pressing the Correct or Incorrect button will show you the score for the quiz.
 
 Every time you press the Start quiz, the scores will reset.
+
+#### `Completing the quiz`
+
+Once you go through all the questions in a quiz, there will be 2 options - go back to the Deck screen or Restart the quiz. You can choose to do either. 
+
+
 
 
