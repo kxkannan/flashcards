@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import * as actionCreators from '../actions/action_creators'
 import Button from 'react-native-button'
+import {Notifications, Permissions} from "expo";
 
 class QuizScreen extends React.Component {
     state = {
@@ -51,7 +52,6 @@ class QuizScreen extends React.Component {
     restartQuiz = () => {
         let title = this.props.reducer.currentDeckTitle
         let questions = this.props.reducer.decks[title].questions[0]
-        let goBackKey = this.props.quiz.goBackKey
         this.props.startQuiz({
             title: title,
             questions: this.props.reducer.decks[title].questions,
@@ -79,6 +79,7 @@ class QuizScreen extends React.Component {
         let {currentQuestionNumber} = this.state
         let quiz = this.props.quiz
         this.props.correctAnswer()
+        this.clearLocalNotification()
         if (!quiz.completed && currentQuestionNumber < quiz.totalQuestions) {
             this.showNextQuestion()
         } else {
@@ -91,6 +92,7 @@ class QuizScreen extends React.Component {
         let {currentQuestionNumber} = this.state
         let quiz = this.props.quiz
         this.props.incorrectAnswer()
+        this.clearLocalNotification()
         if (!quiz.completed && currentQuestionNumber < quiz.totalQuestions) {
             this.showNextQuestion()
         } else {
@@ -122,6 +124,11 @@ class QuizScreen extends React.Component {
                 })
             }
         }
+    }
+
+    clearLocalNotification = () => {
+        this.props.clearNotifications()
+        Notifications.cancelAllScheduledNotificationsAsync
     }
 
     render() {
@@ -302,7 +309,8 @@ function mapDispatchToProps(dispatch) {
         setGoBackKey: (data) => dispatch(actionCreators.setGoBackKey(data)),
         correctAnswer: (data) => dispatch(actionCreators.correctAnswer(data)),
         incorrectAnswer: (data) => dispatch(actionCreators.incorrectAnswer(data)),
-        completeQuiz: (data) => dispatch(actionCreators.completeQuiz(data))
+        completeQuiz: (data) => dispatch(actionCreators.completeQuiz(data)),
+        clearNotifications: () => dispatch(actionCreators.clearNotifications())
     }
 }
 

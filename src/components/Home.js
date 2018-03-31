@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ScrollView, Button} from 'react-native';
 import { connect } from 'react-redux'
 import DeckTitle  from './DeckTitle'
 import * as actionCreators from '../actions/action_creators'
+import {Notifications, Permissions} from "expo";
 
 class HomeScreen extends React.Component {
     state = {
@@ -19,6 +20,7 @@ class HomeScreen extends React.Component {
         this.setState({
             titles: Object.keys(this.props.reducer)
         })
+        this.setLocalNotification()
     }
 
     resetStore = () => {
@@ -32,6 +34,40 @@ class HomeScreen extends React.Component {
         else
         {
             return 0
+        }
+    }
+
+    createNotification = () => {
+        return {
+            title: 'Practice your quizes on Flashcards',
+            body: "Practice makes it perfect - use Flashcards today to improve your skills",
+            ios: {
+                sound: true,
+            }
+        }
+    }
+
+    setLocalNotification = () => {
+        let notifications = this.props.reducer.notifications
+        if (!notifications || notifications === false) {
+            Permissions.askAsync(Permissions.NOTIFICATIONS).
+            then(({status}) => {
+                if (status === 'granted') {
+                    Notifications.cancelAllScheduledNotificationsAsync()
+                    let tomorrow = new Date()
+                    tomorrow.setDate(tomorrow.getDate() + 1)
+                    tomorrow.setHours(8)
+                    tomorrow.setMinutes(0)
+
+                    Notifications.scheduleLocalNotificationAsync(
+                        this.createNotification(), {
+                            time: tomorrow,
+                            repeat: 'day',
+                        }
+                    )
+                    this.props.setNotification()
+                }
+            })
         }
     }
 
@@ -63,25 +99,25 @@ function mapStateToProps({ reducer }) {
 }
 function mapDispatchToProps(dispatch) {
     return {
-        resetStore: () => dispatch(actionCreators.resetStore())
+        resetStore: () => dispatch(actionCreators.resetStore()),
+        setNotification: (data) => dispatch(actionCreators.setNotification(data)),
     }
 }
 
-        const styles = StyleSheet.create({
-            container: {
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-            box: {
-            width: 50,
-            height: 50,
-            backgroundColor: '#e76e63',
-            margin: 10,
-        }
-        })
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  box: {
+    width: 50,
+    height: 50,
+    backgroundColor: '#e76e63',
+    margin: 10,
+  }
+})
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)

@@ -73,3 +73,15 @@ export function setGoBackKey( { goBackKey }) {
         goBackKey
     }
 }
+
+export function setNotification() {
+   return {
+       type: action_types.SET_NOTIFICATION
+   }
+}
+
+export function clearNotification() {
+    return {
+        type: action_types.CLEAR_NOTIFICATION
+    }
+}

@@ -15,7 +15,8 @@ const initialState = {
                 {question: "Does Javascript support operator overloading?", answer: "No"}]
         }
     },
-    currentDeckTitle: null
+    currentDeckTitle: null,
+    notification: null
   }
 
 export const reducer = (state = initialState, action) => {
@@ -51,6 +52,16 @@ export const reducer = (state = initialState, action) => {
         case action_types.CURRENT_DECK_TITLE:
             return {...state,
                     currentDeckTitle: action.title}
+
+        case action_types.SET_NOTIFICATION:
+            return {...state,
+                    notification: true
+            }
+
+        case action_types.CLEAR_NOTIFICATION:
+            return {...state,
+                    notification: false
+            }
 
         default:
             return state
